@@ -1,4 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { getSystemMenus } from '@/api/common/auth'
 
 type AuthState = {
   accessToken: string | null
@@ -7,6 +8,8 @@ type AuthState = {
 const initialState: AuthState = {
   accessToken: null
 }
+
+const fetchSystemAuthMenus = createAsyncThunk('auth/fetchsystemauthmenus', async () => getSystemMenus())
 
 const AuthSlice = createSlice({
   name: 'auth',

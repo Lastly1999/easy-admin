@@ -1,21 +1,28 @@
-import { defineConfig, loadEnv } from 'vite'
+import { defineConfig, ConfigEnv, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import viteEslint from 'vite-plugin-eslint'
 import vitePluginImp from 'vite-plugin-imp'
 import path from 'path'
+import { viteMockServe } from 'vite-plugin-mock'
 
-const readEnvConfig = (mode: any) => {
+const readEnvConfig = (mode: string) => {
   return loadEnv(mode, __dirname)
 }
 
 // https://vitejs.dev/config/
-export default ({ mode }) => {
+export default ({ mode, command }: ConfigEnv) => {
   const envConfig = readEnvConfig(mode)
   return defineConfig({
     plugins: [
       react(),
       viteEslint({
         failOnError: false
+      }),
+      // mock server
+      viteMockServe({
+        // default
+        mockPath: 'mock',
+        localEnabled: command === 'serve'
       }),
       vitePluginImp({
         libList: [
@@ -49,7 +56,9 @@ export default ({ mode }) => {
           javascriptEnabled: true,
           modifyVars: {
             '@primary-color': '#0aa679' //设置antd主题色
-          }
+          },
+          charset: false,
+          additionalData: '@import "./src/assets/style/global.less";'
         }
       }
     }

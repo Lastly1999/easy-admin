@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import AppRouter from './views/Common/Login'
+import AppRouter from '@/router'
 import { ConfigProvider } from 'antd'
 
 const Main: React.FC = () => {

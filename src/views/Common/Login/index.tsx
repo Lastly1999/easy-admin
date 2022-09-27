@@ -11,11 +11,11 @@ const Login: React.FC = () => {
     <div className="login-page-container">
       <Form className="login-page-form" initialValues={{ remember: true }} autoComplete="off" onFinish={handleLogin}>
         <p className="login-form-title">EasyAdmin</p>
-        <Form.Item label="账号" name="username" rules={[{ required: true, message: '' }]}>
+        <Form.Item label="账号" name="userName" rules={[{ required: true, message: '' }]}>
           <Input />
         </Form.Item>
 
-        <Form.Item label="暗号" name="password" rules={[{ required: true, message: '' }]}>
+        <Form.Item label="暗号" name="passWord" rules={[{ required: true, message: '' }]}>
           <Input.Password />
         </Form.Item>
 
