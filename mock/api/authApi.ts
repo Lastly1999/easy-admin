@@ -1,4 +1,5 @@
 import type { MockMethod } from 'vite-plugin-mock'
+import { success } from '../common'
 
 export default [
   {
@@ -7,8 +8,8 @@ export default [
     response: ({ body }) => {
       const menus = [
         {
-          key: '工作台',
-          label: '/workbench'
+          key: '/shared',
+          label: '工作台'
         },
         {
           key: '/auth',
@@ -23,13 +24,13 @@ export default [
               label: '用户管理'
             },
             {
-              key: '/auth/system',
+              key: '/auth/menu',
               label: '系统菜单'
             }
           ]
         }
       ]
-      return menus
+      return success(menus)
     }
   }
 ] as MockMethod[]

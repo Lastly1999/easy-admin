@@ -1,39 +1,41 @@
-import React, { useEffect, useLayoutEffect } from 'react'
+import React, { useLayoutEffect } from 'react'
 import { Layout, Menu, Breadcrumb } from 'antd'
 import type { MenuProps } from 'antd'
-import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons'
-import './appLayout.less'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchSystemAuthMenus } from '@/redux/features/authSlice'
+import { RootState } from '@/redux/redux'
+import Logo from '@/assets/logo.png'
+import './AppLayout.less'
+import { useNavigate, Outlet } from 'react-router-dom'
 
-const { Header, Sider, Content } = Layout
+const { Header, Content } = Layout
 
-const items1: MenuProps['items'] = ['1', '2', '3'].map((key) => ({
-  key,
-  label: `nav ${key}`
-}))
+interface AppLayoutProps {
+  children?: React.ReactNode
+}
 
-const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOutlined].map((icon, index) => {
-  const key = String(index + 1)
-  return {
-    key: `sub${key}`,
-    icon: React.createElement(icon),
-    label: `subnav ${key}`,
+const AppLayout: React.FC<AppLayoutProps> = (props) => {
+  const dispatch = useDispatch()
+  const authMenus = useSelector((state: RootState) => state.auth.menus)
+  const navigate = useNavigate()
+  useLayoutEffect(() => {
+    dispatch(fetchSystemAuthMenus() as any)
+  }, [])
 
-    children: new Array(4).fill(null).map((_, j) => {
-      const subKey = index * 4 + j + 1
-      return {
-        key: subKey,
-        label: `option${subKey}`
-      }
-    })
+  const goPath: MenuProps['onClick'] = ({ key }) => {
+    navigate(key)
   }
-})
 
-const AppLayout: React.FC = () => {
+  console.log(props)
+
   return (
     <Layout className="app-layout-container">
-      <Header className="header">
-        <div className="logo" />
-        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} items={items2} />
+      <Header className="app-layout-header">
+        <div className="logo">
+          <img width={50} src={Logo} />
+          <div className="app-title">EasyAdmin</div>
+        </div>
+        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['/workbench']} items={authMenus} onSelect={goPath} />
       </Header>
       <Layout>
         <Layout style={{ padding: '0 24px 24px', backgroundColor: '#fff' }}>
@@ -42,15 +44,8 @@ const AppLayout: React.FC = () => {
             <Breadcrumb.Item>List</Breadcrumb.Item>
             <Breadcrumb.Item>App</Breadcrumb.Item>
           </Breadcrumb>
-          <Content
-            className="site-layout-background"
-            style={{
-              padding: 24,
-              margin: 0,
-              minHeight: 280
-            }}
-          >
-            Content
+          <Content className="site-layout-background">
+            <Outlet></Outlet>
           </Content>
         </Layout>
       </Layout>

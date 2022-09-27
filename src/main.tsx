@@ -2,6 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import AppRouter from '@/router'
 import { ConfigProvider } from 'antd'
+import { Provider } from 'react-redux'
+import { store } from './redux/redux'
 
 const Main: React.FC = () => {
   ConfigProvider.config({
@@ -10,7 +12,9 @@ const Main: React.FC = () => {
 
   return (
     <ConfigProvider>
-      <AppRouter></AppRouter>
+      <Provider store={store}>
+        <AppRouter></AppRouter>
+      </Provider>
     </ConfigProvider>
   )
 }
