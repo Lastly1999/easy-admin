@@ -1,23 +1,28 @@
 import { RouteObject, useRoutes } from 'react-router-dom'
 import history from './history'
-import Login from '@/views/Common/Login'
+import Login from '@/views/Common/Login/Login'
 import CustomRouter from './CustomRouter'
+import NoPermissions from '@/views/Common/NoPermissions/NoPermissions'
+import AuthProvider from './AuthProvider'
+import { getMetaGlobalFile } from './utils/getMetaGlobal'
 
 const appImportRoutes = import.meta.glob('./routes/*.tsx', { eager: true })
-
-const moduleRoutes: RouteObject[] = []
-Object.values(appImportRoutes).forEach((val: any) => {
-  const mod = val['default']
-  const modList = Array.isArray(mod) ? [...mod] : [mod]
-  moduleRoutes.push(...modList)
-})
+const moduleRoutes = getMetaGlobalFile<RouteObject>(appImportRoutes)
 
 const AppRoutes: RouteObject[] = [
   {
+    path: '',
+    element: <AuthProvider />,
+    children: [...moduleRoutes]
+  },
+  {
+    path: '*',
+    element: <NoPermissions />
+  },
+  {
     path: '/login',
     element: <Login />
-  },
-  ...moduleRoutes
+  }
 ]
 
 /**

@@ -29,5 +29,5 @@ const AuthSlice = createSlice({
 })
 
 export const { setToken } = AuthSlice.actions
-
+export const { name } = AuthSlice
 export default AuthSlice.reducer

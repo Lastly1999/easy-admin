@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom/client'
 import AppRouter from '@/router'
 import { ConfigProvider } from 'antd'
 import { Provider } from 'react-redux'
-import { store } from './redux/redux'
+import { persistor, store } from './redux/redux'
+import { PersistGate } from 'redux-persist/integration/react'
 
 const Main: React.FC = () => {
   ConfigProvider.config({
@@ -13,7 +14,9 @@ const Main: React.FC = () => {
   return (
     <ConfigProvider>
       <Provider store={store}>
-        <AppRouter></AppRouter>
+        <PersistGate loading={null} persistor={persistor}>
+          <AppRouter></AppRouter>
+        </PersistGate>
       </Provider>
     </ConfigProvider>
   )

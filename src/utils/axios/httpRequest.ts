@@ -48,7 +48,7 @@ const jwtInvalidHandler = (code: number) => {
 }
 
 const handelApiError = <T>(data: IJsonResult<T>) => {
-  return notification.error({ message: '温馨提示', description: data.msg })
+  return notification.error({ message: '温馨提示', description: data.message })
 }
 
 const handelHttpError = (description: string) => {
