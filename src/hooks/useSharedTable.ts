@@ -24,7 +24,6 @@ const useSharedTable = <T>({ params, pager = { pageSize: 10, pageNo: 1 }, reques
   const [dataParams, setDataParams] = useState<T>(params)
 
   useEffect(() => {
-    setDataParams(params)
     fetchData()
   }, [dataParams])
 
