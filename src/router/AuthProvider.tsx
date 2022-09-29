@@ -1,7 +1,5 @@
-import { useAppSelector } from '@/hooks/redux'
-import { RootState } from '@/redux/redux'
+import { RootState, useAppSelector } from '@/redux/redux'
 import React from 'react'
-import { useSelector } from 'react-redux'
 import { Outlet, Navigate } from 'react-router-dom'
 
 const AuthProvider: React.FC = () => {

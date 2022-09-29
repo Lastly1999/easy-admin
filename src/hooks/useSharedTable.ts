@@ -6,8 +6,8 @@ type SharedRequestMethod = 'get' | 'post' | 'patch' | 'delete'
 interface SharedTableArgs<T> {
   pager: Pager
   params: T
-  method: SharedRequestMethod
-  reqeustUrl: string
+  reqeustUrl?: string
+  requestMethod: (data: any) => Promise<any>
 }
 
 interface Pager {
@@ -19,17 +19,17 @@ interface Pager {
  * 共享antd表格逻辑 hook
  * @returns
  */
-const useSharedTable = <T>({ params, pager = { pageSize: 10, pageNo: 1 }, method = 'post', reqeustUrl = '' }: SharedTableArgs<T>) => {
+const useSharedTable = <T>({ params, pager = { pageSize: 10, pageNo: 1 }, requestMethod }: SharedTableArgs<T>) => {
   const [dataSource, setDataSource] = useState<any[]>()
   const [dataParams, setDataParams] = useState<T>(params)
 
   useEffect(() => {
     setDataParams(params)
     fetchData()
-  }, [params, dataParams])
+  }, [dataParams])
 
   const fetchData = async () => {
-    const { data } = await httpRequest[method]<any, any[]>(reqeustUrl, { ...dataParams, ...pager })
+    const { data } = await requestMethod({ ...dataParams, ...pager })
     setDataSource([...data])
   }
 

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Shared: React.FC = (props) => {
+const Shared: React.FC = () => {
   return <div>Shared</div>
 }
 

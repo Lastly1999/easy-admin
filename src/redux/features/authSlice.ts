@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import { getSystemMenus } from '@/api/common/auth'
 
-type AuthState = {
+export type AuthState = {
   accessToken: string | null
   menus: any[]
 }
