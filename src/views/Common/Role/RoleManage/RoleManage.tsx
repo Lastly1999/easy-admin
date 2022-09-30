@@ -1,6 +1,6 @@
 import React from 'react'
 
-const RoleManage: React.FC = (props) => {
+const RoleManage: React.FC = () => {
   return <div>RoleManage</div>
 }
 

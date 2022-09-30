@@ -1,5 +1,5 @@
-import { HttpRequestInterceptorConfig, HttpRequestInterceptors } from '@/typings/axios'
-import { IJsonResult } from '@/typings/global'
+import type { HttpRequestInterceptorConfig, HttpRequestInterceptors } from '@/types/axios'
+import type { IJsonResult } from '@/types/global'
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 
 /**

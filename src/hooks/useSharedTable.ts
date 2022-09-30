@@ -1,7 +1,4 @@
 import { useEffect, useState } from 'react'
-import httpRequest from '@/utils/axios/httpRequest'
-
-type SharedRequestMethod = 'get' | 'post' | 'patch' | 'delete'
 
 interface SharedTableArgs<T> {
   pager: Pager
@@ -21,7 +18,7 @@ interface Pager {
  */
 const useSharedTable = <T>({ params, pager = { pageSize: 10, pageNo: 1 }, requestMethod }: SharedTableArgs<T>) => {
   const [dataSource, setDataSource] = useState<any[]>()
-  const [dataParams, setDataParams] = useState<T>(params)
+  const [dataParams] = useState<T>(params)
 
   useEffect(() => {
     fetchData()

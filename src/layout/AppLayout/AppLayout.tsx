@@ -2,6 +2,7 @@ import React from 'react'
 import { Layout, Breadcrumb } from 'antd'
 import { Outlet } from 'react-router-dom'
 import AppMenu from '../AppMenu/AppMenu'
+import AppHeaderTools from '../AppHeaderTools/AppHeaderTools'
 
 import Logo from '@/assets/logo.png'
 import './AppLayout.less'
@@ -16,11 +17,14 @@ const AppLayout: React.FC<AppLayoutProps> = () => {
   return (
     <Layout className="app-layout-container">
       <Header className="app-layout-header">
-        <div className="logo">
-          <img width={50} src={Logo} />
-          <div className="app-title">EasyAdmin</div>
+        <div className="header-left-content">
+          <div className="logo">
+            <img width={65} height={65} src={Logo} />
+            <div className="app-title">EasyAdmin</div>
+          </div>
+          <AppMenu />
         </div>
-        <AppMenu />
+        <AppHeaderTools />
       </Header>
       <Layout>
         <Layout style={{ backgroundColor: '#fff' }}>
