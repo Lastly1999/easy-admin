@@ -3,7 +3,7 @@ import { success } from '../common'
 
 export default [
   {
-    url: '/api/auth/menus',
+    url: '/api/department',
     method: 'get',
     response: ({ body }) => {
       const deps = [
@@ -50,7 +50,7 @@ export default [
           parentId: 0,
           name: '测试部门2',
           orderNum: 0,
-          children: []
+          children: null
         }
       ]
 

@@ -11,7 +11,6 @@ const AppMenu: React.FC = () => {
   useLayoutEffect(() => {
     dispatch(fetchSystemAuthMenus())
   }, [])
-
   const goPath: MenuProps['onClick'] = ({ key }) => {
     navigate(key)
   }
