@@ -7,28 +7,22 @@ import type { SystemDepartmentInfo } from '@/api/model/dep'
 const { DirectoryTree } = Tree
 const { Search } = Input
 
-type RecursiveMenu<T> = (sourceData: T) => DataNode[]
+type RecursiveMenu<T> = (sourceData: T) => any[]
 
 const DepartmentTree: React.FC = () => {
-  const [treeData, setTreeData] = useState<DataNode[]>([])
+  const [treeData, setTreeData] = useState<DataNode[]>()
 
   useEffect(() => {
     getSystemDeps().then((res) => {
+      console.log(recursiveMenu(res.data))
       setTreeData([...recursiveMenu(res.data)])
     })
   }, [])
 
   const recursiveMenu: RecursiveMenu<SystemDepartmentInfo[]> = (sourceData = []) => {
-    return sourceData.map((item) => {
-      if (item.children && item.children.length > 0) {
-        return recursiveMenu(item.children)
-      }
-      return {
-        ...item,
-        key: item.id,
-        title: item.name
-      }
-    })
+    const newArr: any[] = []
+    sourceData.map((item) => (item.children ? newArr.push({ title: item.name, key: item.id, children: recursiveMenu(item.children) }) : newArr.push({ title: item.name, key: item.id })))
+    return newArr
   }
 
   const onSelect: DirectoryTreeProps['onSelect'] = (keys, info) => {
